@@ -13,7 +13,7 @@ const user = {
 }
 const navigation = [
     { name: 'Наші ігри', href: '/', current: true },
-    { name: 'Пошук в інших магазинах', href: '/third-party-stores/search', current: false },
+    { name: 'Пошук в інших магазинах', href: '/games/aggregate', current: false },
     { name: 'Випадкова гра', href: '/random', current: false },
     { name: 'Список бажаного', href: '/wishlist' }
 ];

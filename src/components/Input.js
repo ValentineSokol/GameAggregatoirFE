@@ -1,7 +1,7 @@
 import React, {useId} from 'react';
 import clsx from 'clsx';
 
-export const Input = ({ error, id, label, placeholder, wrapClassName }) => {
+export const Input = ({ error, id, label, placeholder, wrapClassName, ...props }) => {
     const defaultId = useId();
     const errorId = useId();
 
@@ -20,6 +20,7 @@ export const Input = ({ error, id, label, placeholder, wrapClassName }) => {
                 className="rounded-md p-1 w-full"
                 id={inputId}
                 placeholder={placeholder}
+                {...props}
             />
             {error &&
                 <span id={errorId} role='alert' className="mt-2 text-sm text-red-600 dark:text-red-500">{error}</span>}

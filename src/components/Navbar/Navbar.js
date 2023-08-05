@@ -2,26 +2,28 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Logo from '@/assets/logo.svg';
+import UserIcon from '@/assets/user.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Buttons } from '@/constants/styles';
+import {useCurrentUser} from "@/api/useCurrentUser";
 
-const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
 const navigation = [
     { name: 'Наші ігри', href: '/' },
+    { name: 'Додати гру', href: '/games/add' },
     { name: 'Пошук в інших магазинах', href: '/games/aggregate' },
     { name: 'Випадкова гра', href: '/random' },
     { name: 'Список бажаного', href: '/wishlist' }
 ];
-const userNavigation = [
+const userNavigationLoggedIn = [
     { name: 'Профіль', href: '#' },
     { name: 'Налаштування', href: '/settings' },
     { name: 'Вийти', href: '/logOut' },
+]
+
+const userNavigationLoggedOut = [
+    { name: 'Зареєструватись/Увійти', href: '/logIn' },
 ]
 
 function classNames(...classes) {
@@ -30,6 +32,9 @@ function classNames(...classes) {
 
 export default function Navbar() {
     const pathName = usePathname();
+    const { user:  { loggedIn } = {} } = useCurrentUser();
+
+    const userNavigation = loggedIn ? userNavigationLoggedIn : userNavigationLoggedOut;
     return (
         <Disclosure as="nav" className="bg-gray-800">
             {({ open }) => (
@@ -67,7 +72,7 @@ export default function Navbar() {
                                         <div>
                                             <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                                 <span className="sr-only">Open user menu</span>
-                                                <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                                                <Image className="h-8 w-8 rounded-full" src={UserIcon} alt='' />
                                             </Menu.Button>
                                         </div>
                                         <Transition
@@ -133,11 +138,7 @@ export default function Navbar() {
                         <div className="border-t border-gray-700 pb-3 pt-4">
                             <div className="flex items-center px-5">
                                 <div className="flex-shrink-0">
-                                    <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
-                                </div>
-                                <div className="ml-3">
-                                    <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                                    <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                                    <img className="h-10 w-10 rounded-full" src={UserIcon} alt="" />
                                 </div>
                             </div>
                             <div className="mt-3 space-y-1 px-2">
@@ -146,7 +147,7 @@ export default function Navbar() {
                                         key={item.name}
                                         as="a"
                                         href={item.href}
-                                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                                        className={Buttons.default}
                                     >
                                         {item.name}
                                     </Disclosure.Button>

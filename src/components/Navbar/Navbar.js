@@ -13,11 +13,10 @@ const navigation = [
     { name: 'Наші ігри', href: '/' },
     { name: 'Додати гру', href: '/games/add' },
     { name: 'Пошук в інших магазинах', href: '/games/aggregate' },
-    { name: 'Випадкова гра', href: '/random' },
     { name: 'Список бажаного', href: '/wishlist' }
 ];
 const userNavigationLoggedIn = [
-    { name: 'Профіль', href: '#' },
+    { name: 'Мої ключі', href: '/my-keys' },
     { name: 'Налаштування', href: '/settings' },
     { name: 'Вийти', href: '/logOut' },
 ]

@@ -1,10 +1,8 @@
 import React from 'react';
 import Image from "next/image";
-import {Button} from "@/components/Button/Button";
-import {useClaimGame} from "@/api/useClaimGame";
 
-export const Game = ({ game }) => {
-    const { mutate, isLoading } = useClaimGame(game?.id);
+
+export const Game = ({ children, game }) => {
 
     return (
         <article className='flex gap-3'>
@@ -12,8 +10,7 @@ export const Game = ({ game }) => {
             <div>
                 <h2 className="mb-1 font-bold">{game.name}</h2>
                 <p className='mb-2'>{game.description}</p>
-                <span>Ключів залишилось: {game?.keyCount}</span>
-                { !!game?.keyCount && <Button disabled={isLoading} onClick={mutate} className="mx-1">Отримати гру!</Button>}
+                {children}
             </div>
         </article>
     );

@@ -16,7 +16,7 @@ export default function Games() {
           </header>
           <main>
             <ul className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                {games?.map((game) => <li key={game.id}><Game game={game} /></li>)}
+                {games?.map((game) => <li className="mb-5" key={game.id}><Game game={game} /></li>)}
             </ul>
           </main>
         </div>

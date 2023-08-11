@@ -1,4 +1,11 @@
-export default function Example() {
+import {useGames} from "@/api/useGames";
+import Image from "next/image";
+import {Button} from "@/components/Button/Button";
+import {Game} from "@/components/Game/Game";
+
+export default function Games() {
+  const { games, isLoading } = useGames();
+
   return (
       <main>
         <div className="min-h-full">
@@ -8,7 +15,9 @@ export default function Example() {
             </div>
           </header>
           <main>
-            <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
+            <ul className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+                {games?.map((game) => <li key={game.id}><Game game={game} /></li>)}
+            </ul>
           </main>
         </div>
       </main>

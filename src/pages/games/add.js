@@ -1,36 +1,37 @@
 import React, { useState } from 'react';
 import { Input } from '@/components/Input';
 
-import { useGameOffers } from '@/api/useGameOffers';
-import {useDebounce} from "../../../utils/useDebounce";
-
-import { OfferCard } from "@/components/OfferCard/OfferCard";
 import {Button} from "@/components/Button/Button";
+import {FormLayout} from "@/components/layouts/FormLayout";
+import {useAddGame} from "@/api/useAddGame";
 
 export default function AggregatePage() {
-    const [query, setQuery] = useState('');
+    const { mutate } = useAddGame();
+    const [key, setKey] = useState('');
+    const [url, setUrl] = useState('');
 
-    const debouncedSetQuery = useDebounce((e) => setQuery(e.target.value));
-
-    const { data: offers, isLoading, isError, ...result } = useGameOffers(query);
+    const onSubmit = (e) => {
+        e.preventDefault();
+        mutate({ key, url });
+    }
 
     return (
-        <main className='w-full flex justify-center align-middle mt-3'>
-            <form className='flex flex-col gap-5 w-full mx-4'>
+       <FormLayout>
                 <Input
-                    onChange={debouncedSetQuery}
+                    onChange={(e) => setKey(e.target.value)}
+                    value={key}
                     label="Цифровий ключ Steam: "
                     placeholder="Наприклад: 30CFA-WCXEX-MJPJX"
                     wrapClassName='w-full'
                 />
                 <Input
-                    onChange={debouncedSetQuery}
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
                     label="Посилання Steam-сторінки: "
                     placeholder="https://store.steampowered.com/app/*"
                     wrapClassName='w-full'
                 />
-                <Button>Додати</Button>
-            </form>
-        </main>
+                <Button onClick={onSubmit}>Додати</Button>
+       </FormLayout>
     );
 }
